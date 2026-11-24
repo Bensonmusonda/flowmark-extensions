@@ -1,0 +1,48 @@
+name: Package & Release Extension
+
+on:
+  workflow_dispatch:
+    inputs:
+      plugin_id:
+        description: 'Plugin folder name under plugins/'
+        required: true
+        type: string
+  push:
+    tags:
+      - '*-v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine plugin and version
+        id: meta
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            PLUGIN_ID="${{ github.event.inputs.plugin_id }}"
+            VERSION=$(node -e "console.log(require('./plugins/${PLUGIN_ID}/plugin.json').version)")
+            TAG="${PLUGIN_ID}-v${VERSION}"
+          else
+            TAG="${GITHUB_REF_NAME}"
+            PLUGIN_ID="${TAG%-v*}"
+            VERSION="${TAG##*-v}"
+          fi
+          echo "plugin_id=${PLUGIN_ID}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+
+      - name: Package plugin zip
+        run: |
+          cd "plugins/${{ steps.meta.outputs.plugin_id }}"
+          zip -r "../../${{ steps.meta.outputs.plugin_id }}-v${{ steps.meta.outputs.version }}.zip" .
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: "${{ steps.meta.outputs.plugin_id }} v${{ steps.meta.outputs.version }}"
+          files: "${{ steps.meta.outputs.plugin_id }}-v${{ steps.meta.outputs.version }}.zip"

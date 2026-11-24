@@ -1,0 +1,14 @@
+{
+  "name": "quick-insert",
+  "displayName": "Quick Insert Palette",
+  "version": "1.0.0",
+  "manifest_version": 1,
+  "description": "Slick vertical floating quick-insert toolbar for headings, checklists, callouts, code blocks, LaTeX math, tables, and links.",
+  "author": "Benson Musonda",
+  "entry_point": "index.js",
+  "permissions": [
+    "ui.floatingWidgets",
+    "ui.commands",
+    "editor.read"
+  ]
+}
