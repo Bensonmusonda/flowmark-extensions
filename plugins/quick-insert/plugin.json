@@ -8,7 +8,7 @@
   "entry_point": "index.js",
   "permissions": [
     "ui.floatingWidgets",
-    "ui.commands",
+    "editor.commands",
     "editor.read"
   ]
 }
