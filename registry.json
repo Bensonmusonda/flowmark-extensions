@@ -4,12 +4,12 @@
     {
       "id": "quick-insert",
       "name": "Quick Insert Palette",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Slick vertical floating quick-insert toolbar for headings, checklists, callouts, code blocks, LaTeX math, tables, and links.",
       "author": "Benson Musonda",
       "tags": ["toolbar", "writing", "markdown", "official"],
       "permissions": ["ui.floatingWidgets", "editor.commands", "editor.read"],
-      "downloadUrl": "https://github.com/Bensonmusonda/flowmark-extensions/releases/download/quick-insert-v1.0.0/quick-insert-v1.0.0.zip",
+      "downloadUrl": "https://github.com/Bensonmusonda/flowmark-extensions/releases/download/quick-insert-v1.0.1/quick-insert-v1.0.1.zip",
       "homepage": "https://github.com/Bensonmusonda/flowmark-extensions/tree/main/plugins/quick-insert"
     }
   ]
